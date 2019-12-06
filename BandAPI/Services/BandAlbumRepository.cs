@@ -110,6 +110,28 @@ namespace BandAPI.Services
                             .OrderBy(b => b.Name).ToList();
         }
 
+        public IEnumerable<Band> GetBands(string mainGenre, string searchQuery)
+        {
+            if (string.IsNullOrWhiteSpace(mainGenre) && string.IsNullOrWhiteSpace(searchQuery))
+                return GetBands();
+
+            var collection = _context.Bands as IQueryable<Band>;
+
+            if (!string.IsNullOrWhiteSpace(mainGenre))
+            {
+                mainGenre = mainGenre.Trim();
+                collection = collection.Where(b => b.MainGenre == mainGenre);
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchQuery))
+            {
+                searchQuery = searchQuery.Trim();
+                collection = collection.Where(b => b.Name.Contains(searchQuery));
+            }
+
+            return collection.ToList();
+        }
+
         public bool Save()
         {
             return (_context.SaveChanges() >= 0);

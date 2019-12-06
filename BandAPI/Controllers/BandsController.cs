@@ -27,23 +27,9 @@ namespace BandAPI.Controllers
 
         [HttpGet]
         [HttpHead]
-        public ActionResult<IEnumerable<BandDto>> GetBands()
+        public ActionResult<IEnumerable<BandDto>> GetBands([FromQuery]string mainGenre, [FromQuery] string searchQuery)
         {
-            //throw new Exception("testing exceptions");
-            var bandsFromRepo = _bandAlbumRepository.GetBands();
-            //var bandsDto = new List<BandDto>();
-
-            //foreach(var band in bandsFromRepo)
-            //{
-            //    bandsDto.Add(new BandDto()
-            //    {
-            //        Id = band.Id,
-            //        Name = band.Name,
-            //        MainGenre = band.MainGenre,
-            //        FoundedYearsAgo = $"{band.Founded.ToString("yyyy")} ({band.Founded.GetYearsAgo()} years ago)"
-            //    });
-            //}
-
+            var bandsFromRepo = _bandAlbumRepository.GetBands(mainGenre, searchQuery);
             return Ok(_mapper.Map<IEnumerable<BandDto>>(bandsFromRepo));
         }
 
