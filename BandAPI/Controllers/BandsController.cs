@@ -59,7 +59,7 @@ namespace BandAPI.Controllers
         [HttpOptions]
         public IActionResult GetBandsOptions()
         {
-            Response.Headers.Add("Allow", "GET,POST,OPTIONS,DELETE");
+            Response.Headers.Add("Allow", "GET,POST,DELETE,HEAD,OPTIONS");
             return Ok();
         }
 
