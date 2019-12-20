@@ -116,8 +116,8 @@ namespace BandAPI.Services
             if (bandsResourceParameters == null)
                 throw new ArgumentNullException(nameof(bandsResourceParameters));
 
-            if (string.IsNullOrWhiteSpace(bandsResourceParameters.MainGenre) && string.IsNullOrWhiteSpace(bandsResourceParameters.SearchQuery))
-                return GetBands();
+            //if (string.IsNullOrWhiteSpace(bandsResourceParameters.MainGenre) && string.IsNullOrWhiteSpace(bandsResourceParameters.SearchQuery))
+            //    return GetBands();
 
             var collection = _context.Bands as IQueryable<Band>;
 
@@ -133,7 +133,10 @@ namespace BandAPI.Services
                 collection = collection.Where(b => b.Name.Contains(searchQuery));
             }
 
-            return collection.ToList();
+            return collection
+                .Skip(bandsResourceParameters.PageSize * (bandsResourceParameters.PageNumber -1))
+                .Take(bandsResourceParameters.PageSize)
+                .ToList();
         }
 
         public bool Save()
