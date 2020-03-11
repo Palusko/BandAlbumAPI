@@ -23,8 +23,8 @@ namespace BandAPI
                 try
                 {
                     var context = scope.ServiceProvider.GetService<BandAlbumContext>();
-                    context.Database.EnsureDeleted();
-                    context.Database.Migrate();
+                    //context.Database.EnsureDeleted();
+                    //context.Database.Migrate();
                 }
                 catch(Exception ex)
                 {

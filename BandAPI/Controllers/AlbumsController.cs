@@ -12,6 +12,7 @@ namespace BandAPI.Controllers
 {
     [ApiController]
     [Route("api/bands/{bandId}/albums")]
+    [ResponseCache(CacheProfileName = "90SecondsCacheProfile")]
     public class AlbumsController : ControllerBase
     {
         private readonly IBandAlbumRepository _bandAlbumRepository;
@@ -36,6 +37,7 @@ namespace BandAPI.Controllers
         }
 
         [HttpGet("{albumId}", Name = "GetAlbumForBand")]
+        [ResponseCache(Duration =120)]
         public ActionResult<AlbumsDto> GetAlbumForBand(Guid bandId, Guid albumId)
         {
             if (!_bandAlbumRepository.BandExists(bandId))
