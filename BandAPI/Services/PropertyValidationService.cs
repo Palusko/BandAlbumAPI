@@ -17,7 +17,7 @@ namespace BandAPI.Services
 
             foreach (var field in fieldsAfterSplit)
             {
-                var propertyName = fields.Trim();
+                var propertyName = field.Trim();
                 var propertyInfo = typeof(T).GetProperty(propertyName,
                     BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
 
